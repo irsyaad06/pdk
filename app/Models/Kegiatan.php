@@ -24,7 +24,7 @@ class Kegiatan extends Model
         'kategori_id'
     ];
 
-    public function photos()
+    public function fotos()
     {
         return $this->hasMany(KegiatanFoto::class);
     }

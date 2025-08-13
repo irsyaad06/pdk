@@ -17,7 +17,13 @@ class KegiatanResource extends Resource
 {
     protected static ?string $model = Kegiatan::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-sparkles';
+
+    protected static ?int $navigationSort = 1;
+
+    protected static ?string $pluralModelLabel = 'List Kegiatan';
+
+    protected static ?string $navigationLabel = 'Kegiatan';
 
     protected static ?string $navigationGroup = 'Kegiatan';
 
@@ -60,8 +66,23 @@ class KegiatanResource extends Resource
                         'dibuka' => 'Dibuka',
                         'ditutup' => 'Ditutup',
                     ]),
+
+                Forms\Components\FileUpload::make('fotos')
+                    ->multiple()
+                    ->directory('kegiatan')
+                    ->preserveFilenames()
+                    ->columnSpanFull()
+                    ->afterStateHydrated(function ($component, $record) {
+                        if ($record && $record->fotos) {
+                            $component->state(
+                                $record->fotos->pluck('path')->toArray()
+                            );
+                        }
+                    })
+
             ]);
     }
+
 
     public static function table(Table $table): Table
     {
