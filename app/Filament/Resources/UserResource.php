@@ -69,7 +69,7 @@ class UserResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => EditUser::route('/{record}', 1),
+            'index' => EditUser::route('/{record}'),
             'create' => CreateUser::route('/create'),
         ];
     }
