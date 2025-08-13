@@ -18,9 +18,21 @@ class Kegiatan extends Model
         'kuota',
         'ada_presensi',
         'ada_tugas',
+        'is_aktif',
         'donasi_minimum',
-        'status'
+        'status',
+        'kategori_id'
     ];
+
+    public function photos()
+    {
+        return $this->hasMany(KegiatanFoto::class);
+    }
+
+    public function kategori()
+    {
+        return $this->belongsTo(Kategori::class);
+    }
 
     public function pesertas()
     {

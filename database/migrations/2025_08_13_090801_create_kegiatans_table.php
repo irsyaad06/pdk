@@ -13,15 +13,17 @@ return new class extends Migration
     {
         Schema::create('kegiatans', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('kategori_id')->constrained('kategori')->onDelete('cascade');;
             $table->string('judul');
             $table->text('deskripsi')->nullable();
             $table->date('tanggal_mulai');
             $table->date('tanggal_selesai');
-            $table->string('lokasi')->nullable(); // 'Online via Zoom' / alamat
+            $table->string('lokasi')->nullable();
             $table->integer('kuota')->nullable();
             $table->boolean('ada_presensi')->default(true);
             $table->boolean('ada_tugas')->default(false);
-            $table->integer('donasi_minimum')->default(0); // untuk sertifikat
+            $table->boolean('is_aktif')->default(false);
+            $table->integer('donasi_minimum')->default(5000);
             $table->enum('status', ['draft', 'dibuka', 'ditutup'])->default('draft');
             $table->timestamps();
         });
